@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Counter from "./components/counter";
 import Clicker from "./components/clicker";
 
@@ -8,13 +8,6 @@ function App() {
     totalCookies: 0,
     cookiesPerSecond: 1
   });
-
-  // const increment = useCallback(() => {
-  //   setState({
-  //     ...state,
-  //     totalCookies: state.totalCookies + state.cookiesPerSecond
-  //   })
-  // }, [state]);
 
   // For increasing the cookie count on clicks
   const increment = () => {
@@ -32,13 +25,17 @@ function App() {
   }
 
   const increaseCPS = (increaseAmount) => {
-    console.log("increasing CPS by", increaseAmount);
-    setState({
-      ...state,
-      cookiesPerSecond: state.cookiesPerSecond + increaseAmount
-    })
-    console.log("the CPS is now", state.cookiesPerSecond);
+    setState(prevState => ({
+      ...prevState,
+      cookiesPerSecond: prevState.cookiesPerSecond + increaseAmount
+    }));
   }
+
+
+  // useEffect(() => {
+  //   console.log("the CPS is now", state.cookiesPerSecond);
+  //   // console.log("increaseCPS prop:", increaseCPS);
+  // }, [state.cookiesPerSecond]);
 
   const spendCookies = (cost) => {
     setState({
@@ -46,6 +43,7 @@ function App() {
       totalCookies: state.totalCookies - cost
     })
   }
+  
 
   return (
     <div className="App">
