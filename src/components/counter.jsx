@@ -11,12 +11,12 @@ const Counter = (props) => {
 
     // Increase the number of cookies by CPS every second
     useEffect(() => {
-        intervalRef.current = setInterval(props.increment, 10);
+        intervalRef.current = setInterval(props.timeIncrement, 10);
 
         return () => {
             clearInterval(intervalRef.current);
         };
-    }, [props.increment]);
+    }, [props.timeIncrement]);
 
     return (
         <div id="counter">
