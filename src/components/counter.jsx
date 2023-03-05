@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
 const Counter = (props) => {
-    
     const increaseCPS = () => {
         props.increaseCPS(1);
     }
@@ -21,11 +20,11 @@ const Counter = (props) => {
     return (
         <div id="counter">
             <h1>Total cookies: {Math.floor(props.totalCookies)}</h1>
-            <h2>CPS: {props.cps}</h2>
+            <h2>CPS: {Math.round(props.cps * 10) / 10}</h2>
             <button onClick={increaseCPS}>Increase CPS by 1</button>
             <button onClick={props.increment}>Cookie!</button>
         </div>
-    )
-}
+    );
+};
 
 export default Counter;

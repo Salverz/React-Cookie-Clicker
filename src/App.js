@@ -1,12 +1,12 @@
 import './App.css';
-import { useState, useCallback, useEffect } from 'react';
+import { useState } from 'react';
 import Counter from "./components/counter";
-import Clicker from "./components/clicker";
+import BuildingRack from './components/buildingRack';
 
 function App() {
   const [state, setState] = useState({
     totalCookies: 0,
-    cookiesPerSecond: 1
+    cookiesPerSecond: 0
   });
 
   // For increasing the cookie count on clicks
@@ -14,41 +14,47 @@ function App() {
     setState({
       ...state,
       totalCookies: state.totalCookies + 1
-    })
-  }
+    });
+  };
 
+  // For increasing the cookie count each second
   const timeIncrement = () => {
     setState({
       ...state,
       totalCookies: state.totalCookies + state.cookiesPerSecond / 100
-    })
-  }
+    });
+  };
 
+  // For increasing the CPS
   const increaseCPS = (increaseAmount) => {
     setState(prevState => ({
       ...prevState,
       cookiesPerSecond: prevState.cookiesPerSecond + increaseAmount
     }));
-  }
+  };
 
-
-  // useEffect(() => {
-  //   console.log("the CPS is now", state.cookiesPerSecond);
-  //   // console.log("increaseCPS prop:", increaseCPS);
-  // }, [state.cookiesPerSecond]);
-
+  // Used to spend cookies
   const spendCookies = (cost) => {
     setState({
       ...state,
       totalCookies: state.totalCookies - cost
-    })
-  }
-  
+    });
+  };
 
   return (
     <div className="App">
-      <Counter totalCookies={state.totalCookies} cps={state.cookiesPerSecond} increment={increment} increaseCPS={increaseCPS} timeIncrement={timeIncrement}/>
-      <Clicker totalCookies={state.totalCookies} increaseCPS={increaseCPS} spendCookies={spendCookies}/>
+      <Counter
+        totalCookies={state.totalCookies}
+        cps={state.cookiesPerSecond}
+        increment={increment}
+        increaseCPS={increaseCPS}
+        timeIncrement={timeIncrement}
+      />
+      <BuildingRack
+        totalCookies={state.totalCookies}
+        increaseCPS={increaseCPS}
+        spendCookies={spendCookies}
+      />
     </div>
   );
 }
